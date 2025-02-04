@@ -4,6 +4,7 @@ The purpose of this repository is to showcase my projects completed as part of m
 
 # Future Projects...
 
-  ![ComingSoonGIF](https://github.com/user-attachments/assets/020319e1-fc6b-4401-9c78-963734edc454)
+![ComingSoonGIF (2)](https://github.com/user-attachments/assets/82cb2ce7-1072-4636-bd20-fb7429d87e71)
+
 
 I plan to organize this repository into folders grouping each project by their focus (i.e. exploratory data analysis, visualizations, modeling, etc.). Within each folder, each project will be further organized individually to include any datasets, code, and other relevant materials, as well as a project summary/description. 
