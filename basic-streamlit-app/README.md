@@ -4,3 +4,5 @@ The basic Penguin App I have created sources data from 344 penguins in the **Pal
 # How to run the app:
 
 To run the app, you may copy and paste the following command into your terminal: streamlit run basic_streamlit_app/main.py
+
+Alternatively, you can copy and paste the following link in your browser:[text](http://localhost:8502/)
