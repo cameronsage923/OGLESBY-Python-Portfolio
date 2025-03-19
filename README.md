@@ -13,7 +13,7 @@ In this portfolio, I have uploaded my first data visualization project: The Peng
 This project applies tidy data principles to clean and analyze an Olympic dataset! 
 It includes data wrangling, visualization, and pivot tables to summarize key insights.
 
-# Future Projects...
+# More Projects...
 
 ![ComingSoonGIF (2)](https://github.com/user-attachments/assets/82cb2ce7-1072-4636-bd20-fb7429d87e71)
 
