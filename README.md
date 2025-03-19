@@ -10,8 +10,10 @@ In this portfolio, I have uploaded my first data visualization project: The Peng
 ### Tidy Data Project 🏅
 [View the Repository](https://github.com/cameronsage923/TidyData-Project)
 
-This project applies tidy data principles to clean and analyze an Olympic dataset! 
+Description: This project applies tidy data principles to clean and analyze an Olympic dataset! 
 It includes data wrangling, visualization, and pivot tables to summarize key insights.
+
+This file **fits into my portfolio** by showcasing my ability to clean and structure "messy" data. It also displays my exploratory analysis skills and my ability to create meaningful visualizations. Building upon my previous data analytics work, this project strengthens my Python skills and data science best practices.
 
 # More Projects...
 
