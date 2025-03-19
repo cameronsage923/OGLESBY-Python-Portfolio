@@ -3,11 +3,11 @@ The **purpose** of this repository is to showcase my projects completed as part 
 
 # My Projects
 
-## The Penguin App 🐧
+### The Penguin App 🐧
 
 In this portfolio, I have uploaded my first data visualization project: The Penguin App! Please see my basic-streamlit-app folder for more details.
 
-## Tidy Data Project 🏅
+### Tidy Data Project 🏅
 [View the Repository](https://github.com/cameronsage923/TidyData-Project)
 
 This project applies tidy data principles to clean and analyze an Olympic dataset! 
