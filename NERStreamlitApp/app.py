@@ -6,10 +6,10 @@ if "custom_patterns" not in st.session_state:
     st.session_state.custom_patterns = []
 
 sample_texts = {
-    "Famous Quote": "'The only thing we have to fear is fear itself.' - Franklin D. Roosevelt.",
-    "Professor Review": "Professor Smiley is the greatest professor of all time!",
-    "Diary Entry": "I really hate the Mendoza curve. It's ruining my life!",
-    "Hinge Bio" : "I quote The Office like it's the Bible and still cry during every Deftones concert. If you like fried pickles or Crime Junky podcasts, we'll get along just fine."
+    "Party Invitation": "Lads, it's that time again. We're throwing down SATURDAY in the Keenan Courtyard. Theme: Shrek Rave. Come in green, bring a freind, leave with a memory (or at least a photo on someone's finsta). Fr. Dowd will be there, as well as former president Barack Obama, and rumor has it Breen-Phillips is making swamp punch. First 50 get free glow-in-the-dark rosaries. Be there or be excommunicated.",
+    "Professor Review": "Professor Smiley is an icon. He once made a peanut butter & jelly sandwich with an entire loaf of Wonderbread to illustrate the importance of specific instructions. He loves Lord of the Rings and uses easter eggs to make class more fun. Though he is a full-time Python weapon these days, he used to be a comedian! What a guy.",
+    "Diary Entry (Freshman Edition)": "I survived my first SYR. The theme was Barbenheimer and yes, I wore pink AND fake radiation goggles. My date spilled Spinelli’s ranch on my dress, but we still ended up in Dahnke. Tomorrow I have a finance quiz with Professor Ackerman and a group project for Professor Balko's class in Mendoza. Pray for me.",
+    "Hinge Bio" : "I'm just a girl, standing in front of South Dining Hall, asking them to bring back decent mac and cheese. Also, shoutout to my therapist—aka the ducks at St. Mary’s Lake. I peaked during SYR season and now spend most of my days lurking in Debartolo Hall pretending to study. If you like fried pickles or Crime Junky podcasts, we'll get along just fine."
 }
 
 
@@ -33,11 +33,26 @@ selected_sample = st.selectbox(
     ["-- Select --"] + list(sample_texts.keys())
 )
 
-user_text = st.text_area(
-    "Enter your text here or select a sample above:",
-    value=sample_texts[selected_sample] if selected_sample in sample_texts else "",
-    height=200
-)
+uploaded_file = st.file_uploader("Or upload a .txt file", type=["txt"])
+
+user_text = ""
+
+if uploaded_file is not None:
+    text = uploaded_file.read().decode("utf-8")
+    st.success("File is uploaded successfully!")
+elif selected_sample in sample_texts:
+    text = sample_texts[selected_sample]
+else:
+    text = ""
+
+user_text = st.text_area("View and edit your text below:", value=text, height=200)
+
+if user_text.strip() != "":
+    st.markdown("### Recognized Entities:")
+    doc = nlp(user_text)
+    for ent in doc.ents:
+        st.write(f"{ent.text} ({ent.label_})")
+
 
 st.subheader("Define a Custom Entity (Optional)")
 with st.form("custom_entity_form"):
