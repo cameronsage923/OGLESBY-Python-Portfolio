@@ -44,12 +44,6 @@ spaCy’s NER pipeline uses statistical models and rule-based matchers to identi
 
 ---
 
-### 🌐 Deployed Version
-
-> 👉 [Click here to view the deployed app on Streamlit Community Cloud](https://your-streamlit-deployed-link.streamlit.app)
-
----
-
 ## ✨ App Features
 
 - 📄 **Upload or type custom text**
@@ -80,7 +74,7 @@ spaCy’s NER pipeline uses statistical models and rule-based matchers to identi
 > *(Add these screenshots directly to your repo and embed them like below)*
 
 ```markdown
-![Enitty Visual Higlighting Example](NERexample.png)
+![Entity Visual Highlighting Example](NERexample.png)
 ![Entity Frequency Charts](NERchartexample.png)
 ```
 
