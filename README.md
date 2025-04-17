@@ -21,6 +21,8 @@ This file **fits into my portfolio** by showcasing my ability to clean and struc
 
 Description: A custom Streamlit web app that allows users to explore Named Entity Recognition using spaCy. Users can input or upload text, define custom entity labels using spaCy's `EntityRuler`, and instantly visualize the recognized entities highlighted within the text. Includes visual charts and interactive features.
 
+This project complements my overall coding portfolio by illustrating my ability to combine natural language processing (NLP) with interactive front-end development! It showcases my practical experience with Python, spaCy, and Streamlit my ability to build a fully functional app that’s user-friendly. It shows skills in data visualization, user interface design, and the application of rule-based machine learning tools.
+
 # More Projects...
 
 ![ComingSoonGIF (2)](https://github.com/user-attachments/assets/82cb2ce7-1072-4636-bd20-fb7429d87e71)
