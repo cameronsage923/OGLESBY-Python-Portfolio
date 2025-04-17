@@ -71,8 +71,10 @@ spaCy’s NER pipeline uses statistical models and rule-based matchers to identi
 
 ## 🖼️ Visual Examples
 Visual Highlighting:
+
 <img width="509" alt="NERexample" src="https://github.com/user-attachments/assets/a2dbd3eb-b4e4-4499-a289-39082ce90517" />
 
 Frequency Charts:
+
 <img width="502" alt="NERchartexample" src="https://github.com/user-attachments/assets/1e22085a-6efd-40e5-85ef-c7062f3a51b4" />
 
