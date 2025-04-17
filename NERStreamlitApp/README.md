@@ -43,6 +43,11 @@ spaCy’s NER pipeline uses statistical models and rule-based matchers to identi
    ```
 
 ---
+## Link to Deployed Version
+
+https://namedentityrecognitionapp.streamlit.app/ 
+
+---
 
 ## ✨ App Features
 
