@@ -13,27 +13,29 @@ sample_texts = {
 }
 
 
-st.title("🧠 Named Entity Recognition (NER) App")
+st.title("🔍 Make Your Own NER: Label Like a Champion Today! ☘️ 💙")
 st.markdown(
     """
-    This app lets you explore Named Entity Recognition using **spaCy**, AND lets you customize it too!
-    - Input your own text, or use one of the sample texts below.
-    - Define custom entities, like "pickles" as FOOD (or BEST FOOD EVER if we're being real).
-    - See your entities highlighted below!
+    This app lets you explore Named Entity Recognition (NER) using **spaCy**, AND lets you define your own custom entities too! 
+    How does it work?
+    
+    **Step 1:** Input your own text, or use one of the sample texts below.
+    
+    **Step 2:** Define custom entities, like "pickles" 🥒 as FOOD (or BEST FOOD EVER if we're being real).
+    
+    Finally, see your entities highlighted below!
 
-    Created with L❤️VE using Streamlit and spaCy.
     """
 )
 
 
-st.subheader("Enter text below:")
-st.subheader("Try a Sample Text")
+st.subheader("Choose a sample text, upload a file, or type your own text below:")
 selected_sample = st.selectbox(
-    "Choose a sample (optional):",
+    "🗂️ Choose a sample (optional):",
     ["-- Select --"] + list(sample_texts.keys())
 )
 
-uploaded_file = st.file_uploader("Or upload a .txt file", type=["txt"])
+uploaded_file = st.file_uploader("📤 Or upload a .txt file:", type=["txt"])
 
 user_text = ""
 
@@ -45,16 +47,9 @@ elif selected_sample in sample_texts:
 else:
     text = ""
 
-user_text = st.text_area("View and edit your text below:", value=text, height=200)
+user_text = st.text_area("🖊️ Enter, view, and edit your text below:", value=text, height=200)
 
-if user_text.strip() != "":
-    st.markdown("### Recognized Entities:")
-    doc = nlp(user_text)
-    for ent in doc.ents:
-        st.write(f"{ent.text} ({ent.label_})")
-
-
-st.subheader("Define a Custom Entity (Optional)")
+st.subheader("✍️ Define a Custom Entity (Optional):")
 with st.form("custom_entity_form"):
     col1, col2 = st.columns(2)
     with col1:
@@ -91,6 +86,13 @@ if add_rule and label and pattern:
     ruler.add_patterns(new_pattern)
     st.success(f"Custom rule added: '{pattern}' as {label.upper()}")
 
+# Display the list of custom rules if any exist
+if st.session_state.custom_patterns:
+    st.markdown("### 🧾 Your Custom Entity Rules")
+    for i, rule in enumerate(st.session_state.custom_patterns, start=1):
+        st.markdown(f"**{i}.** `{rule['pattern']}` : `{rule['label']}`")
+
+
 # --- Display Results ---
 from spacy import displacy
 
@@ -98,17 +100,52 @@ doc = nlp(user_text)
 if not doc.ents:
     st.write("No named entities found.")
 else:
+    st.subheader("Recognized Entities:")
+    ent_data = [{"Text": ent.text, "Label": ent.label_} for ent in doc.ents]
+    st.dataframe(ent_data)
+
     st.subheader("Visual Highlighting:")
-    
     # Render HTML with displacy
     html = displacy.render(doc, style="ent", jupyter=False)
     
-    # Display it in Streamlit using st.markdown and some CSS
-    st.write("Entities highlighted in your text:")
+    # Displaying it in Streamlit with st.markdown:
+    st.write("Here are all of the entities highlighted in your text:")
     st.markdown(
         f"<div style='background-color: #f9f9f9; padding: 10px; border-radius: 8px;'>{html}</div>",
         unsafe_allow_html=True
     )
-    st.subheader("Extracted Entities:")
-    ent_data = [{"Text": ent.text, "Label": ent.label_} for ent in doc.ents]
-    st.dataframe(ent_data)
+    
+
+import matplotlib.pyplot as plt
+import pandas as pd
+#Title in Streamlit:
+st.title("Named Entity Frequency Chart")
+#Building data for the bar chart:
+if user_text:
+    doc = nlp(user_text)
+    label_frequency = {}
+    # Counting the number of entity labels:
+    for ent in doc.ents:
+        label_frequency[ent.label_] = label_frequency.get(ent.label_, 0) + 1
+    # Creating the DataFrame:
+    df = pd.DataFrame(label_frequency.items(), columns=["Entity Type", "Frequency"])
+    df = df.sort_values("Frequency", ascending=False)
+
+    # Imitate the Notre Dame color palette:
+    nd_colors = ["#0C2340", "#007A33", "#F3C613"]  # Navy, Kelly Green, Gold
+    color_cycle = (nd_colors * (len(df) // len(nd_colors) + 1))[:len(df)]
+    #Building the bar chart (using matplotlib instead of Streamlit so I can customize the bar chart colors!:
+    fig, ax = plt.subplots()
+    ax.bar(df["Entity Type"], df["Frequency"], color=color_cycle)
+
+    # Styling the chart:
+    ax.set_title("Named Entity Label Frequencies", fontsize=16, fontweight='bold')
+    ax.set_xlabel("Entity Type", fontsize=12)
+    ax.set_ylabel("Frequency", fontsize=12)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Displaying the barchart Streamlit
+    st.pyplot(fig)
+else:
+    st.info("👀 Enter some text above to see entity frequency results!")
