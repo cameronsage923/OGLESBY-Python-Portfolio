@@ -15,8 +15,11 @@ It includes data wrangling, visualization, and pivot tables to summarize key ins
 
 This file **fits into my portfolio** by showcasing my ability to clean and structure "messy" data. It also displays my exploratory analysis skills and my ability to create meaningful visualizations. Building upon my previous data analytics work, this project strengthens my Python skills and data science best practices.
 
-### Named Entity Recognition (NER) App 🔍
-[View the Repository](https://github.com/cameronsage923/OGLESBY-Python-Portfolio/NERStreamlitApp)
+### 🔍 Named Entity Recognition (NER) App 📊
+
+[View the full NER App Project →](https://github.com/cameronsage923/NERStreamlitApp)
+
+Description: A custom Streamlit web app that allows users to explore Named Entity Recognition using spaCy. Users can input or upload text, define custom entity labels using spaCy's `EntityRuler`, and instantly visualize the recognized entities highlighted within the text. Includes visual charts and interactive features.
 
 # More Projects...
 
