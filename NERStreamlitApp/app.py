@@ -11,6 +11,7 @@ sample_texts = {
     "Hinge Bio" : "I'm just a girl, standing in front of South Dining Hall, asking them to bring back decent mac and cheese. Also, shoutout to my therapist—aka the ducks at St. Mary’s Lake. I peaked during SYR season and now spend most of my days lurking in Debartolo Hall pretending to study. If you like fried pickles or Crime Junky podcasts, we'll get along just fine."
 }
 
+#st.image("NERimage.png", use_column_width=True)
 
 st.title("🔍 Make Your Own NER: Label Like a Champion Today! ☘️ 💙")
 st.markdown(
@@ -108,6 +109,7 @@ if st.session_state.custom_patterns:
 
 # --- Display Results ---
 from spacy import displacy
+import streamlit.components.v1 as components
 
 doc = nlp(user_text)
 if not doc.ents:
@@ -118,16 +120,18 @@ else:
     st.dataframe(ent_data)
 
     st.subheader("👀 Visual Highlighting 👀:")
-    # Render HTML with displacy
+    
+    st.subheader("📄 Full Text with Highlighted Entities:")
+
+    # Get raw displacy HTML
     html = displacy.render(doc, style="ent", jupyter=False)
-    
-    # Displaying it in Streamlit with st.markdown:
-    st.write("Here are all of the entities highlighted in your text!")
-    st.markdown(
-        f"<div style='background-color: #f9f9f9; padding: 10px; border-radius: 8px;'>{html}</div>",
-        unsafe_allow_html=True
+
+    # Inject a white background + padding directly into spaCy's internal container
+    custom_html = html.replace(
+        '<div class="entities"',
+        '<div class="entities" style="background-color: white; padding: 20px; border-radius: 10px; font-family: Courier New, monospace; font-size: 16px;"'
     )
-    
+    components.html(custom_html, height=500, scrolling=True)
 
 import matplotlib.pyplot as plt
 import pandas as pd
