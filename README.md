@@ -17,7 +17,7 @@ This file **fits into my portfolio** by showcasing my ability to clean and struc
 
 ### 🔍 Named Entity Recognition (NER) App 📊
 
-[View the full NER App Project →](https://github.com/cameronsage923/NERStreamlitApp)
+[View the full NER App Project](https://github.com/cameronsage923/OGLESBY-Python-Portfolio/tree/main/NERStreamlitApp) 
 
 Description: A custom Streamlit web app that allows users to explore Named Entity Recognition using spaCy. Users can input or upload text, define custom entity labels using spaCy's `EntityRuler`, and instantly visualize the recognized entities highlighted within the text. Includes visual charts and interactive features.
 
