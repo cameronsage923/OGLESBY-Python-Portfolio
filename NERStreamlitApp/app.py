@@ -2,8 +2,7 @@ import streamlit as st
 import spacy
 from spacy.pipeline import EntityRuler
 nlp = spacy.load("en_core_web_sm")
-if "custom_patterns" not in st.session_state:
-    st.session_state.custom_patterns = []
+
 
 sample_texts = {
     "Party Invitation": "Lads, it's that time again. We're throwing down SATURDAY in the Keenan Courtyard. Theme: Shrek Rave. Come in green, bring a freind, leave with a memory (or at least a photo on someone's finsta). Fr. Dowd will be there, as well as former president Barack Obama, and rumor has it Breen-Phillips is making swamp punch. First 50 get free glow-in-the-dark rosaries. Be there or be excommunicated.",
@@ -48,6 +47,10 @@ else:
     text = ""
 
 user_text = st.text_area("🖊️ Enter, view, and edit your text below:", value=text, height=200)
+#################
+##################
+if "custom_patterns" not in st.session_state:
+    st.session_state.custom_patterns = []
 
 st.subheader("✍️ Define a Custom Entity (Optional):")
 with st.form("custom_entity_form"):
@@ -58,7 +61,6 @@ with st.form("custom_entity_form"):
         pattern = st.text_input("Enter the words or phrases to match (e.g., 'pickles')")
     add_rule = st.form_submit_button("Add Custom Rule")
 
-
 if add_rule:
     if label and pattern:
         new_rule = {"label": label.upper(), "pattern": pattern}
@@ -66,6 +68,23 @@ if add_rule:
         st.success(f"Added rule: '{pattern}' → {label.upper()}")
     else:
         st.warning("Please provide both a label and a pattern.")
+
+# Toggle to include/exclude spaCy's default NER
+show_all_entities = st.checkbox("👁️ Check to Show ALL named entities (default + custom)!", value=True)
+
+# Add EntityRuler and (optionally) remove default NER
+if "entity_ruler" not in nlp.pipe_names:
+    ruler = nlp.add_pipe("entity_ruler", before="ner" if "ner" in nlp.pipe_names else None)
+else:
+    ruler = nlp.get_pipe("entity_ruler")
+
+# Optional: remove spaCy's default NER if toggle is off
+if not show_all_entities and "ner" in nlp.pipe_names:
+    nlp.remove_pipe("ner")
+
+# Add custom patterns
+if st.session_state.custom_patterns:
+    ruler.add_patterns(st.session_state.custom_patterns)
 
 # Add EntityRuler to the pipeline
 if "entity_ruler" not in nlp.pipe_names:
@@ -79,12 +98,6 @@ if st.session_state.custom_patterns:
 if st.button("Reset All Custom Rules"):
     st.session_state.custom_patterns = []
     st.success("All custom rules have been cleared.")
-
-# If a custom rule was submitted
-if add_rule and label and pattern:
-    new_pattern = [{"label": label.upper(), "pattern": pattern}]
-    ruler.add_patterns(new_pattern)
-    st.success(f"Custom rule added: '{pattern}' as {label.upper()}")
 
 # Display the list of custom rules if any exist
 if st.session_state.custom_patterns:
@@ -100,16 +113,16 @@ doc = nlp(user_text)
 if not doc.ents:
     st.write("No named entities found.")
 else:
-    st.subheader("Recognized Entities:")
+    st.subheader("🔍 Recognized Entities:")
     ent_data = [{"Text": ent.text, "Label": ent.label_} for ent in doc.ents]
     st.dataframe(ent_data)
 
-    st.subheader("Visual Highlighting:")
+    st.subheader("👀 Visual Highlighting 👀:")
     # Render HTML with displacy
     html = displacy.render(doc, style="ent", jupyter=False)
     
     # Displaying it in Streamlit with st.markdown:
-    st.write("Here are all of the entities highlighted in your text:")
+    st.write("Here are all of the entities highlighted in your text!")
     st.markdown(
         f"<div style='background-color: #f9f9f9; padding: 10px; border-radius: 8px;'>{html}</div>",
         unsafe_allow_html=True
@@ -118,34 +131,51 @@ else:
 
 import matplotlib.pyplot as plt
 import pandas as pd
-#Title in Streamlit:
-st.title("Named Entity Frequency Chart")
-#Building data for the bar chart:
+
+# Only show chart if user has entered text
 if user_text:
     doc = nlp(user_text)
     label_frequency = {}
-    # Counting the number of entity labels:
+
     for ent in doc.ents:
         label_frequency[ent.label_] = label_frequency.get(ent.label_, 0) + 1
-    # Creating the DataFrame:
-    df = pd.DataFrame(label_frequency.items(), columns=["Entity Type", "Frequency"])
-    df = df.sort_values("Frequency", ascending=False)
 
-    # Imitate the Notre Dame color palette:
-    nd_colors = ["#0C2340", "#007A33", "#F3C613"]  # Navy, Kelly Green, Gold
-    color_cycle = (nd_colors * (len(df) // len(nd_colors) + 1))[:len(df)]
-    #Building the bar chart (using matplotlib instead of Streamlit so I can customize the bar chart colors!:
-    fig, ax = plt.subplots()
-    ax.bar(df["Entity Type"], df["Frequency"], color=color_cycle)
+    if label_frequency:
+        df = pd.DataFrame(label_frequency.items(), columns=["Entity Type", "Frequency"])
+        df = df.sort_values("Frequency", ascending=False)
 
-    # Styling the chart:
-    ax.set_title("Named Entity Label Frequencies", fontsize=16, fontweight='bold')
-    ax.set_xlabel("Entity Type", fontsize=12)
-    ax.set_ylabel("Frequency", fontsize=12)
-    plt.xticks(rotation=45)
-    plt.tight_layout()
+        # ND colors
+        nd_colors = ["#0C2340", "#007A33", "#F3C613", "#004225", "#FFD100"]
+        color_cycle = (nd_colors * (len(df) // len(nd_colors) + 1))[:len(df)]
 
-    # Displaying the barchart Streamlit
-    st.pyplot(fig)
+        st.subheader("📊 Entity Frequency Charts")
+        st.write("Expand the tabs below to visualize the breakdown and frequency of your named entities!")
+
+        # Optional: use expanders or columns for layout
+        with st.expander("📈 Bar Chart"):
+            fig1, ax1 = plt.subplots()
+            ax1.bar(df["Entity Type"], df["Frequency"], color=color_cycle)
+            ax1.set_title("Named Entity Label Frequencies", fontsize=16, fontweight='bold')
+            ax1.set_xlabel("Entity Type", fontsize=12)
+            ax1.set_ylabel("Frequency", fontsize=12)
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            st.pyplot(fig1)
+
+        with st.expander("🥧 Pie Chart"):
+            fig2, ax2 = plt.subplots()
+            ax2.pie(
+                df["Frequency"],
+                labels=df["Entity Type"],
+                autopct='%1.1f%%',
+                startangle=90,
+                colors=color_cycle,
+                textprops={'fontsize': 10, 'color': 'black'}
+            )
+            ax2.set_title("Entity Type Breakdown", fontsize=14, fontweight="bold")
+            ax2.axis("equal")
+            st.pyplot(fig2)
+    else:
+        st.info("No entities found to chart yet!")
 else:
     st.info("👀 Enter some text above to see entity frequency results!")

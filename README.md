@@ -15,6 +15,9 @@ It includes data wrangling, visualization, and pivot tables to summarize key ins
 
 This file **fits into my portfolio** by showcasing my ability to clean and structure "messy" data. It also displays my exploratory analysis skills and my ability to create meaningful visualizations. Building upon my previous data analytics work, this project strengthens my Python skills and data science best practices.
 
+### Named Entity Recognition (NER) App 🔍
+[View the Repository](https://github.com/cameronsage923/OGLESBY-Python-Portfolio/NERStreamlitApp)
+
 # More Projects...
 
 ![ComingSoonGIF (2)](https://github.com/user-attachments/assets/82cb2ce7-1072-4636-bd20-fb7429d87e71)
