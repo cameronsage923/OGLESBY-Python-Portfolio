@@ -2,12 +2,6 @@ import streamlit as st
 import spacy
 import spacy.cli 
 nlp = spacy.load("en_core_web_sm")
-#try:
-    #nlp = spacy.load("en_core_web_sm")
-    #print('')
-#except OSError:
-    #spacy.cli.download("en_core_web_sm")
-    #nlp = spacy.load("en_core_web_sm")
 
 from spacy.pipeline import EntityRuler
 
