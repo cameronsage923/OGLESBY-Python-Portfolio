@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Setting up the main page of the app:
 st.set_page_config(page_title="Multifamily Deal Visualizer", layout="centered")
@@ -76,3 +77,25 @@ st.write("### Costs and Value Creation")
 st.write(f"**Total Renovation Cost:** ${total_renovation_cost:,.2f}")
 st.write(f"**Total Project Cost (Acquisition + Reno):** ${total_project_cost:,.2f}")
 st.write(f"**Estimated Value Created:** ${value_created:,.2f}")
+
+# Adding visualizations for user exploration:
+
+st.subheader("📊 Visual Comparisons")
+
+# --- NOI Comparison Chart ---
+st.write("### Current vs. Stabilized NOI")
+
+fig_noi, ax_noi = plt.subplots()
+ax_noi.bar(["Current NOI", "Stabilized NOI"], [noi_current, noi_renovated], color=["#1f77b4", "#2ca02c"])
+ax_noi.set_ylabel("Dollars ($)")
+ax_noi.set_title("NOI Comparison")
+st.pyplot(fig_noi)
+
+# --- Property Value Comparison Chart ---
+st.write("### Total Project Cost vs. Post-Reno Property Value")
+
+fig_value, ax_value = plt.subplots()
+ax_value.bar(["Total Cost", "Value After Reno"], [total_project_cost, value_after_renovation], color=["#ff7f0e", "#9467bd"])
+ax_value.set_ylabel("Dollars ($)")
+ax_value.set_title("Value Creation Comparison")
+st.pyplot(fig_value)
