@@ -82,7 +82,7 @@ st.write(f"**Estimated Value Created:** ${value_created:,.2f}")
 
 st.subheader("📊 Visual Comparisons")
 
-# --- NOI Comparison Chart ---
+# NOI Comparison Chart:
 st.write("### Current vs. Stabilized NOI")
 
 fig_noi, ax_noi = plt.subplots()
@@ -91,7 +91,7 @@ ax_noi.set_ylabel("Dollars ($)")
 ax_noi.set_title("NOI Comparison")
 st.pyplot(fig_noi)
 
-# --- Property Value Comparison Chart ---
+# Property Value Comparison Chart:
 st.write("### Total Project Cost vs. Post-Reno Property Value")
 
 fig_value, ax_value = plt.subplots()
@@ -99,3 +99,8 @@ ax_value.bar(["Total Cost", "Value After Reno"], [total_project_cost, value_afte
 ax_value.set_ylabel("Dollars ($)")
 ax_value.set_title("Value Creation Comparison")
 st.pyplot(fig_value)
+if value_created > 0:
+    st.success("🎉 This deal creates value! You should consider pursuing it.")
+else:
+    st.error("⚠️ This deal loses value. Consider changing your assumptions.")
+
