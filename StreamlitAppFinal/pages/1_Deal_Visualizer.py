@@ -10,10 +10,8 @@ This app lets you model the financials of a value-add multifamily real estate de
 Adjust assumptions like rent, renovations, and cap rate to see how value is created.
 """)
 
-# Placeholder for sidebar inputs:
-st.header("🔧 Deal Assumptions")
 
-# --- Acquisition Assumptions ---
+# Input Acquisition Assumptions:
 st.subheader("🏷️ Acquisition Assumptions")
 col1a, col1b = st.columns(2)
 with col1a:
@@ -22,16 +20,18 @@ with col1a:
 with col1b:
     units = st.number_input("Number of Units", min_value=1, value=10)
     current_rent = st.number_input("Current Rent per Unit ($)", min_value=0, value=1000)
+st.markdown("---") 
 
-# --- Renovation Assumptions ---
+# Input Renovation Assumptions:
 st.subheader("🛠️ Renovation Assumptions")
 col2a, col2b = st.columns(2)
 with col2a:
     renovated_rent = st.number_input("Renovated Rent per Unit ($)", min_value=0, value=1200)
 with col2b:
     renovation_cost_per_unit = st.number_input("Renovation Cost per Unit ($)", min_value=0, value=10000)
+st.markdown("---") 
 
-# --- Operating Assumptions ---
+# Input Operating Assumptions:
 st.subheader("📊 Operating Assumptions")
 col3a, col3b = st.columns(2)
 with col3a:
@@ -39,6 +39,7 @@ with col3a:
     expense_ratio = st.slider("Operating Expense Ratio (%)", 0, 100, 40)
 with col3b:
     occupancy_post = st.slider("Stabilized Occupancy Rate (%)", 0, 100, 95)
+st.markdown("---") 
 
 # Handling errors: show warnings if key inputs are questionable:
 if current_rent <= 0 or renovated_rent <= 0:
@@ -122,49 +123,31 @@ if current_rent > 0 and renovated_rent > 0 and exit_cap_rate > 0 and units > 0:
             st.write(f"**Stabilized NOI:** ${noi_renovated:,.2f}")
             st.write("### Property Valuation")
             st.write(f"**Projected Property Value After Renovation:** ${value_after_renovation:,.2f}")
-        with col1b:
-            st.write("### Costs and Value Creation")
+            st.write("### Costs")
             st.write(f"**Total Renovation Cost:** ${total_renovation_cost:,.2f}")
-            st.write(f"**Total Project Cost (Acquisition + Reno):** ${total_project_cost:,.2f}")
-            st.write(f"**Estimated Value Created:** ${value_created:,.2f}")
+            st.write(f"**Total Project Cost:** ${total_project_cost:,.2f}")
+        with col1b:
+            st.markdown("## Estimated Value Created")
+            value_created_color = "green" if value_created > 0 else "red"
+            st.markdown(f"<h2 style='color:{value_created_color};'>${value_created:,.0f}</h2>", unsafe_allow_html=True)
+            st.markdown("This is the estimated increase in value after renovations, based on your exit cap rate and stabilized NOI.")
     with tab2:
         st.subheader("📊 Visual Comparisons")
-        # Create 2 or 3 columns
-        col1, col2 = st.columns(2)
+
         # NOI Comparison Chart
-        with col1:
-            st.write("### Current vs. Stabilized NOI")
-            fig_noi, ax_noi = plt.subplots()
-            ax_noi.bar(["Current", "Stabilized"], [noi_current, noi_renovated], color=["#1f77b4", "#2ca02c"])
-            ax_noi.set_title("NOI Comparison")
-            ax_noi.set_ylabel("Dollars ($)")
-            st.pyplot(fig_noi)
+        st.write("### Current vs. Stabilized NOI")
+        fig_noi, ax_noi = plt.subplots()
+        ax_noi.bar(["Current", "Stabilized"], [noi_current, noi_renovated], color=["#1f77b4", "#2ca02c"])
+        ax_noi.set_title("NOI Comparison")
+        ax_noi.set_ylabel("Dollars ($)")
+        st.pyplot(fig_noi)
         #Property Value Comparison Chart:
-        with col2:
-            st.write("### Total Project Cost vs. Post-Reno Property Value")
-            fig_value, ax_value = plt.subplots()
-            ax_value.bar(["Cost", "Value"], [total_project_cost, value_after_renovation], color=["#ff7f0e", "#9467bd"])
-            ax_value.set_title("Project Cost vs Value")
-            ax_value.set_ylabel("Dollars ($)")
-            st.pyplot(fig_value)
-
-        # NOI Comparison Chart:
-        #st.write("### Current vs. Stabilized NOI")
-
-        #fig_noi, ax_noi = plt.subplots()
-        #ax_noi.bar(["Current NOI", "Stabilized NOI"], [noi_current, noi_renovated], color=["#1f77b4", "#2ca02c"])
-        #ax_noi.set_ylabel("Dollars ($)")
-        #ax_noi.set_title("NOI Comparison")
-        #st.pyplot(fig_noi)
-
-        # Property Value Comparison Chart:
-        #st.write("### Total Project Cost vs. Post-Reno Property Value")
-
-        #fig_value, ax_value = plt.subplots()
-        #ax_value.bar(["Total Cost", "Value After Reno"], [total_project_cost, value_after_renovation], color=["#ff7f0e", "#9467bd"])
-        #ax_value.set_ylabel("Dollars ($)")
-        #ax_value.set_title("Value Creation Comparison")
-        #st.pyplot(fig_value)
+        st.write("### Total Project Cost vs. Post-Reno Property Value")
+        fig_value, ax_value = plt.subplots()
+        ax_value.bar(["Cost", "Value"], [total_project_cost, value_after_renovation], color=["#ff7f0e", "#9467bd"])
+        ax_value.set_title("Project Cost vs Value")
+        ax_value.set_ylabel("Dollars ($)")
+        st.pyplot(fig_value)
 
         #Stacked bar: income vs expenses:
         st.write("### Income vs. Expenses (Pre vs. Post Renovation)")
@@ -193,3 +176,6 @@ else:
     st.error("❌ Cannot calculate financials with invalid inputs above.")
 
 
+st.session_state["total_project_cost"] = total_project_cost
+st.session_state["noi_renovated"] = noi_renovated
+st.session_state["value_after_renovation"] = value_after_renovation
