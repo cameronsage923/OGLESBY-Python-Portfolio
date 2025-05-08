@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Multifamily RE Deal Tool", layout="centered")
 
 # Header Image
-st.image("pictures/RE_image.png", caption="Source: CRE Knowledge Base", use_column_width=True)
+st.image("pictures/RE_image.png")
 
 # Title Section:
 st.title("🏢 Real Estate Private Equity: Multifamily Value-Add Deal Modeling Lab")
