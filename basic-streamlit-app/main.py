@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+st.image("pictures/penguin_app_image.jpg", use_column_width=True, caption="Source: Vecteezy")
+
 #Display a title:
 st.title("Welcome to The Penguin App!")
 
@@ -8,7 +10,6 @@ st.title("Welcome to The Penguin App!")
 st.write("This app allows you to filter data collected from 344 different penguins by island, species, and body mass.")
 
 #Sample DataFrame:
-#df = pd.read_csv("data/penguins.csv")
 df = pd.read_csv("https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/inst/extdata/penguins.csv")
 
 #Interactive filtering options:
