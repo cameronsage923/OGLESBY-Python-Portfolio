@@ -4,7 +4,7 @@ st.set_page_config(page_title="Multifamily RE Deal Tool", layout="centered")
 
 # Header Image
 #st.image("pictures/Fundamentals-of-Value-Add-Real-Estate-Investing-01.png", use_column_width=True, caption="Source: CRE Knowledge Base")
-st.image("pictures/RE_image.png")
+#st.image("pictures/RE_image.png")
 
 # Title Section:
 st.title("🏢 Real Estate Private Equity: Multifamily Value-Add Deal Modeling Lab")
