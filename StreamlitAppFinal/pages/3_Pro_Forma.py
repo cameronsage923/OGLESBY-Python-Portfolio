@@ -6,6 +6,12 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Pro Forma Statement", layout="centered")
 st.title("📄 Pro Forma Statement")
 
+st.markdown("""
+### 📋 What is a Pro Forma?
+
+A **pro forma** is a forward-looking financial projection. In real estate, it estimates a property’s income, expenses, and cash flow over the life of the investment — often 5 to 10 years. It helps investors evaluate whether a deal is likely to meet their return targets.
+""")
+
 # First, pull key values from session_state:
 
 required_keys = ["units", "renovated_rent", "occupancy_post", "expense_ratio_decimal", "hold_period", "debt", "interest_rate", "value_after_renovation"]
@@ -77,6 +83,17 @@ st.dataframe(
         .format("${:,.0f}")
         .apply(style_rows, axis=1)
 )
+
+st.markdown("""
+The table above shows key financial projections for each year of the investment:
+
+- **Gross Income**: Rental income, adjusted for annual rent growth  
+- **Operating Expenses**: Property costs, adjusted for expense growth  
+- **NOI**: Income after expenses, before loan payments  
+- **Debt Service**: Annual loan payments (if debt is used)  
+- **Cash Flow**: The money available to investors each year  
+- **Exit Value**: The projected sale price in the final year, based on an exit cap rate
+""")
 
 
 # Adding a Visualization:
