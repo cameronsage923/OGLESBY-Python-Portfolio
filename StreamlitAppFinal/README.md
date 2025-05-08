@@ -32,7 +32,7 @@ Waterfall Modeling:
 
 
 ## 🌐 Live Demo
-Check out the app here: Multifamily Value-Add Deal Visualizer on Streamlit Cloud
+Check out the app here: [Multifamily Value-Add Deal Visualizer on Streamlit Cloud](https://multifamilyvalueadd.streamlit.app/) 
 
 ## 🚀 Run the App Locally
 First, ensure you have Python 3.8+ installed along with the required libraries. You can install dependencies using:
