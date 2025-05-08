@@ -39,6 +39,13 @@ with col1a:
     pref_rate_input = st.number_input("Preferred Return to LP (%)", 0.0, 20.0, value=default_pref_rate)
     st.session_state["pref_rate"] = pref_rate_input
     pref_rate = pref_rate_input / 100
+    with st.expander("What is a Preferred Return?"):
+        st.markdown("""
+        A **Preferred Return** (often called a "pref") is the **minimum annual return** that investors (LPs) are promised before the sponsor (GP) shares in the profits.
+
+        For example, an 8% pref means the investor gets paid 8% per year on their investment **before** the sponsor earns anything.
+        """)
+
 
     # GP Equity %
     default_gp_equity_pct = st.session_state.get("gp_equity_pct", 0.10)  # stored as float (e.g., 0.10)
@@ -46,6 +53,13 @@ with col1a:
     gp_equity_pct_raw = st.slider("GP Equity %", 0, 100, value=default_gp_equity_pct_int)
     gp_equity_pct = gp_equity_pct_raw / 100  # convert back to float
     st.session_state["gp_equity_pct"] = gp_equity_pct
+    with st.expander("What is GP Equity %?"):
+        st.markdown("""
+        This shows how much of their own money the **General Partner (GP)** is investing in the deal.
+
+        A higher **GP Equity %** aligns the sponsor with investors — it means the sponsor is sharing the same risk and reward.
+        """)
+
 
     lp_equity_pct = 1 - gp_equity_pct
 
@@ -55,6 +69,15 @@ with col1a:
     promote_pct_raw = st.slider("Promote % (GP Share of Upside)", 0, 100, value=default_promote_pct_int)
     promote_pct = promote_pct_raw / 100
     st.session_state["promote_pct"] = promote_pct
+    with st.expander("What is the Promote %?"):
+        st.markdown("""
+        The **Promote** is the sponsor’s share of the profits **after** investors get their preferred return.
+
+        Think of it as a **bonus** or incentive for good performance.
+
+        For example, a 20% promote means that after the LPs get their 8% preferred return, the GP keeps 20% of the remaining profits.
+        """)
+
 
     default_show_catchup = st.session_state.get("show_catchup", False)
     show_catchup = st.checkbox("Enable GP Catch-Up Tier?", value=default_show_catchup)
@@ -80,17 +103,28 @@ with col1b:
     st.session_state["interest_rate"] = interest_rate_rounded
     interest_rate = interest_rate_rounded / 100  # Use as decimal in calculations
 
-    #default_interest_rate = st.session_state.get("interest_rate", 0.05)
-    #default_interest_rate_int = int(default_interest_rate * 100) #convert to percent as integer
-    #interest_rate_percent = st.number_input("Interest Rate (%)", 0, 100, value=default_interest_rate)
-    #interest_rate = interest_rate_percent / 100
-    #st.session_state["interest_rate"] = interest_rate
+    with st.expander("What is the Debt Interest Rate?"):
+        st.markdown("""
+        This is the annual **interest rate** charged on the loan used to buy the property.
+
+        It determines how much you owe the lender each year.  
+        A higher rate increases your debt payments and reduces your cash flow.
+        """)
+
 
     default_debt_ratio = st.session_state.get("debt_ratio", 0.6)
     default_debt_ratio_int = int(default_debt_ratio * 100)  # Convert to percent as integer
     debt_ratio_percent = st.slider("Debt %", 0, 100, value=default_debt_ratio_int)
     debt_ratio = debt_ratio_percent / 100  # Convert back to decimal for calculations
     st.session_state["debt_ratio"] = debt_ratio
+    with st.expander("What is the Debt Ratio?"):
+        st.markdown("""
+        The **Debt Ratio**, also called **Loan-to-Value (LTV)**, tells you what percentage of the purchase price is funded by a loan.
+
+        - For example, a 70% debt ratio means you're borrowing 70% of the cost and putting in 30% equity.
+        - Higher debt increases risk but can boost returns if the investment performs well.
+        """)
+
 
 
 st.divider()
@@ -222,6 +256,13 @@ with col2a :
     col2a.metric("LP IRR", f"{lp_irr*100:.2f}%")
     col2a.metric("GP IRR", f"{gp_irr*100:.2f}%")
     col2a.metric("Total Equity IRR", f"{total_equity_irr*100:.2f}%")
+    with st.expander("What is IRR (Internal Rate of Return)?"):
+        st.markdown("""
+        **IRR** is the annualized rate of return that makes the net present value (NPV) of all future cash flows equal to zero.
+
+        It accounts for the **timing of cash flows**, not just their magnitude, making it one of the most commonly used investment performance metrics.
+        """)
+
 with col2b:
     st.write("### 💰 Distribution Breakdown")
     st.write(pd.DataFrame.from_dict(results, orient="index", columns=["Amount ($)"]))

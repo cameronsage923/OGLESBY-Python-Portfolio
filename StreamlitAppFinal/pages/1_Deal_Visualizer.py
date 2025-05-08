@@ -72,6 +72,17 @@ with col4c:
     default_exit_cap_rate = st.session_state.get("exit_cap_rate", 5)
     exit_cap_rate = st.number_input("Exit Cap Rate (%)", min_value=1.0, max_value=15.0, value=5.0, step=0.1) / 100
     st.session_state["exit_cap_rate"] = exit_cap_rate
+    with st.expander("What is an Exit Cap Rate?"):
+        st.markdown("""
+        The **Exit Cap Rate** is used to estimate the resale value of a property at the end of the holding period:
+
+        \n\\[
+        \\text{Exit Value} = \\frac{\\text{Final Year NOI}}{\\text{Exit Cap Rate}}
+        \\]
+
+        Investors often assume a slightly higher exit cap rate than the entry cap to be conservative.
+        """)
+
 st.markdown("---") 
 
 # Handling errors: show warnings if key inputs are questionable:
@@ -156,8 +167,7 @@ if current_rent > 0 and renovated_rent > 0 and exit_cap_rate > 0 and units > 0:
             st.write(f"**Stabilized NOI:** ${noi_renovated:,.2f}")
             with st.expander("What is Net Operating Income (NOI)?"):
                 st.markdown("""
-                **NOI** stands for **Net Operating Income**.  
-                It's calculated as revenue minus operating expenses (excluding debt service, taxes, and capital expenditures).  
+                Net Operating Income is calculated as revenue minus operating expenses (excluding debt service, taxes, and capital expenditures).  
                 It's a key indicator of a property's profitability before financing costs.
                 """)
 
