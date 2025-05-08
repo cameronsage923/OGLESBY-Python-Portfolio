@@ -9,6 +9,11 @@ The Penguin App was developed as an introduction to building interactive data ap
 
 The dataset contains measurements for 344 penguins across several species and islands in Antarctica, collected by researchers at the Palmer Station.
 
+## App Preview
+Below is a preview of the Penguin App interface:
+
+![Penguin App Screenshot](pictures/penguin_app_example.png)
+
 ## 🌐 Live Demo
 Check out the app here: [The Penguin App on Streamlit Cloud](https://thepenguinapp.streamlit.app/)
 
