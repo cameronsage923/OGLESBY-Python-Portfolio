@@ -8,7 +8,7 @@ st.set_page_config(page_title="Waterfall Modeling", layout="wide")
 st.title("📉 Equity Waterfall Modeling")
 
 # Checking for required data:
-required_keys = ["total_project_cost", "value_after_renovation", "noi_renovated"]
+required_keys = ["total_project_cost", "value_after_renovation", "noi_renovated", "hold_period", "stabilized_year"]
 if not all(k in st.session_state for k in required_keys):
     st.error("Please run the Deal Visualizer first to generate project outputs.")
     st.stop()
@@ -17,42 +17,84 @@ if not all(k in st.session_state for k in required_keys):
 total_project_cost = st.session_state["total_project_cost"]
 value_after_renovation = st.session_state["value_after_renovation"]
 noi_renovated = st.session_state["noi_renovated"]
+hold_period = st.session_state["hold_period"]
+stabilized_year = st.session_state["stabilized_year"]
 
 # Displaying the deal summary:
-st.markdown("### 🔍 Deal Snapshot (from Visualizer)")
-col1, col2, col3 = st.columns(3)
+st.markdown("### 🔍 Your Deal Snapshot (from Deal Visualizer):")
+col1, col2, col3, col4 = st.columns(4)
 col1.metric("Total Project Cost", f"${total_project_cost:,.0f}")
 col2.metric("Stabilized NOI", f"${noi_renovated:,.0f}")
-col3.metric("Projected Exit Value", f"${value_after_renovation:,.0f}")
-
-st.markdown("### 🧮 Waterfall & Capital Stack Assumptions")
-
-col1a, col1b, col1c = st.columns(3)
-with col1a:
-    hold_period = st.number_input("Hold Period (Years)", min_value=1, value=5)
-    st.number_input(
-    "📆 Year Stabilized (NOI Begins)",
-    min_value=1,
-    max_value=hold_period,
-    value=2,
-    key="stabilized_year"
-    )
-    debt_ratio = st.slider("Debt %", 0, 100, 60) / 100
-with col1b:
-    interest_rate = st.number_input("Interest Rate (%)", 0.0, 15.0, 5.0) / 100
-    interest_only = st.checkbox("Interest-Only?", value=True)
-with col1c:
-    gp_equity_pct = st.slider("GP Equity %", 0, 100, 10) / 100
-    lp_equity_pct = 1 - gp_equity_pct
+col3.metric("Holding Period", f"{hold_period:,.0f} years")
+col4.metric("Projected Exit Value", f"${value_after_renovation:,.0f}")
 
 st.divider()
 
-col2a, col2b = st.columns(2)
-with col2a:
-    pref_rate = st.number_input("Preferred Return to LP (%)", 0.0, 20.0, 8.0) / 100
-    promote_pct = st.slider("Promote % (GP Share of Upside)", 0, 100, 20) / 100
-with col2b:
-    show_catchup = st.checkbox("Enable GP Catch-Up Tier?", value=False)
+col1a, col1b = st.columns([3, 2])  # Weighted widths for column aesthetics
+
+with col1a:
+    st.markdown("### 🧮 Waterfall & Capital Stack Assumptions:")
+
+    default_pref_rate = st.session_state.get("pref_rate", 8.0)
+    pref_rate_input = st.number_input("Preferred Return to LP (%)", 0.0, 20.0, value=default_pref_rate)
+    st.session_state["pref_rate"] = pref_rate_input
+    pref_rate = pref_rate_input / 100
+
+    # GP Equity %
+    default_gp_equity_pct = st.session_state.get("gp_equity_pct", 0.10)  # stored as float (e.g., 0.10)
+    default_gp_equity_pct_int = int(default_gp_equity_pct * 100)  # convert to int percent
+    gp_equity_pct_raw = st.slider("GP Equity %", 0, 100, value=default_gp_equity_pct_int)
+    gp_equity_pct = gp_equity_pct_raw / 100  # convert back to float
+    st.session_state["gp_equity_pct"] = gp_equity_pct
+
+    lp_equity_pct = 1 - gp_equity_pct
+
+    # Promote %
+    default_promote_pct = st.session_state.get("promote_pct", 0.20)  # stored as float (e.g., 0.20)
+    default_promote_pct_int = int(default_promote_pct * 100)
+    promote_pct_raw = st.slider("Promote % (GP Share of Upside)", 0, 100, value=default_promote_pct_int)
+    promote_pct = promote_pct_raw / 100
+    st.session_state["promote_pct"] = promote_pct
+
+    default_show_catchup = st.session_state.get("show_catchup", False)
+    show_catchup = st.checkbox("Enable GP Catch-Up Tier?", value=default_show_catchup)
+    st.session_state["show_catchup"] = show_catchup
+
+with col1b:
+    st.markdown("### 🏦 Debt Assumptions:")
+
+    # Get saved value or default to 5.0%
+    default_interest_rate = st.session_state.get("interest_rate", 5.0)
+
+    # Let user type interest rate as a float (percent)
+    interest_rate_input = st.text_input("Interest Rate (%)", value=str(default_interest_rate))
+
+    # Try to convert input to float and round to nearest 0.5%
+    try:
+        interest_rate_rounded = round(float(interest_rate_input) * 2) / 2  # Rounds to nearest 0.5
+    except ValueError:
+        st.warning("Please enter a valid number.")
+        interest_rate_rounded = default_interest_rate  # fallback
+
+    # Save and convert to decimal
+    st.session_state["interest_rate"] = interest_rate_rounded
+    interest_rate = interest_rate_rounded / 100  # Use as decimal in calculations
+
+    #default_interest_rate = st.session_state.get("interest_rate", 0.05)
+    #default_interest_rate_int = int(default_interest_rate * 100) #convert to percent as integer
+    #interest_rate_percent = st.number_input("Interest Rate (%)", 0, 100, value=default_interest_rate)
+    #interest_rate = interest_rate_percent / 100
+    #st.session_state["interest_rate"] = interest_rate
+
+    default_debt_ratio = st.session_state.get("debt_ratio", 0.6)
+    default_debt_ratio_int = int(default_debt_ratio * 100)  # Convert to percent as integer
+    debt_ratio_percent = st.slider("Debt %", 0, 100, value=default_debt_ratio_int)
+    debt_ratio = debt_ratio_percent / 100  # Convert back to decimal for calculations
+    st.session_state["debt_ratio"] = debt_ratio
+
+
+st.divider()
+
 
 # Capital structure calculations:
 equity = total_project_cost * (1 - debt_ratio)
@@ -61,9 +103,7 @@ gp_equity = equity * gp_equity_pct
 lp_equity = equity * lp_equity_pct
 
 # Build annual project-level cash flows:
-annual_debt_service = debt * interest_rate if interest_only else 0
-
-stabilized_year = st.session_state["stabilized_year"]
+annual_debt_service = debt * interest_rate #if interest_only else 0
 
 annual_cash_flows = []
 for year in range(1, hold_period + 1):
@@ -73,7 +113,7 @@ for year in range(1, hold_period + 1):
         equity_cf = noi - debt_payment
     else:
         # Add sale proceeds to final year:
-        debt_payment = annual_debt_service + (0 if interest_only else debt)
+        debt_payment = annual_debt_service + debt #(0 if interest_only else debt)
         equity_cf = noi + value_after_renovation - debt_payment
 
     annual_cash_flows.append({
@@ -104,15 +144,10 @@ for year_data in annual_cash_flows:
     lp_cf.append(lp_share)
     gp_cf.append(gp_share)
 
-
-# Display to user:
-st.markdown("### 🗓️ Annual Project Cash Flows")
-st.dataframe(cf_df.style.format({"NOI": "${:,.0f}", "Debt Service": "${:,.0f}", "Cash to Equity": "${:,.0f}"}))
-
 # Calculate final cash available at exit:
 sale_proceeds = value_after_renovation
 total_exit_cash = (noi_renovated + sale_proceeds)  # Exit-year NOI + sale
-debt_repayment = debt if not interest_only else 0  # Assume balloon payment at end
+debt_repayment = debt  # Assume balloon payment at end
 cash_to_equity = total_exit_cash - debt_repayment
 
 # Defining the Waterfall function:
@@ -181,15 +216,15 @@ project_cf = [-equity] + [row["Cash to Equity"] for row in annual_cash_flows]
 total_equity_irr = npf.irr(project_cf)
 
 # Display the results:
-st.markdown("### 📈 Waterfall Summary")
-
-col1, col2, col3 = st.columns(3)
-col1.metric("LP IRR", f"{lp_irr*100:.2f}%")
-col2.metric("GP IRR", f"{gp_irr*100:.2f}%")
-col3.metric("Total Equity IRR", f"{total_equity_irr*100:.2f}%")
-
-st.write("### 💸 Distribution Breakdown")
-st.write(pd.DataFrame.from_dict(results, orient="index", columns=["Amount ($)"]))
+col2a, col2b = st.columns(2)
+with col2a :
+    st.markdown("### 📈 Waterfall Summary")
+    col2a.metric("LP IRR", f"{lp_irr*100:.2f}%")
+    col2a.metric("GP IRR", f"{gp_irr*100:.2f}%")
+    col2a.metric("Total Equity IRR", f"{total_equity_irr*100:.2f}%")
+with col2b:
+    st.write("### 💰 Distribution Breakdown")
+    st.write(pd.DataFrame.from_dict(results, orient="index", columns=["Amount ($)"]))
 
 # Visualize the waterfall with chart:
 
@@ -255,3 +290,6 @@ with st.expander("📘 Modeling Assumptions"):
         4. Residual split per the promote structure
     - IRRs are calculated on a single-entry, single-exit cash flow basis.
     """)
+
+# Storing inputs to be used across pages:
+st.session_state["debt"] = debt

@@ -13,32 +13,65 @@ Adjust assumptions like rent, renovations, and cap rate to see how value is crea
 
 # Input Acquisition Assumptions:
 st.subheader("🏷️ Acquisition Assumptions")
-col1a, col1b = st.columns(2)
+col1a, col1b, col1c = st.columns(3)
 with col1a:
-    purchase_price = st.number_input("Acquisition Cost ($)", min_value=0, value=1000000)
-    exit_cap_rate = st.number_input("Exit Cap Rate (%)", min_value=1.0, max_value=15.0, value=5.0, step=0.1) / 100
+    default_purchase_price = st.session_state.get("purchase_price", 1000000)
+    purchase_price = st.number_input("Acquisition Cost ($)", min_value=0, value=default_purchase_price)
+    st.session_state["purchase_price"] = purchase_price
 with col1b:
-    units = st.number_input("Number of Units", min_value=1, value=10)
-    current_rent = st.number_input("Current Rent per Unit ($)", min_value=0, value=1000)
+    default_units = st.session_state.get("units", 10)
+    units = st.number_input("Number of Units", min_value=1, value=default_units)
+    st.session_state["units"] = units
+with col1c:
+    default_current_rent = st.session_state.get("current_rent", 1000)
+    current_rent = st.number_input("Current Rent per Unit ($)", min_value=0, value=default_current_rent)
+    st.session_state["current_rent"] = current_rent
 st.markdown("---") 
 
 # Input Renovation Assumptions:
 st.subheader("🛠️ Renovation Assumptions")
 col2a, col2b = st.columns(2)
 with col2a:
-    renovated_rent = st.number_input("Renovated Rent per Unit ($)", min_value=0, value=1200)
+    default_renovated_rent = st.session_state.get("renovated_rent", 1200)
+    renovated_rent = st.number_input("Renovated Rent per Unit ($)", min_value=0, value=default_renovated_rent)
+    st.session_state["renovated_rent"] = renovated_rent
 with col2b:
-    renovation_cost_per_unit = st.number_input("Renovation Cost per Unit ($)", min_value=0, value=10000)
+    default_renovation_cost_per_unit = st.session_state.get("renovation_cost_per_unit", 10000)
+    renovation_cost_per_unit = st.number_input("Renovation Cost per Unit ($)", min_value=0, value=default_renovation_cost_per_unit)
+    st.session_state["renovation_cost_per_unit"] = renovation_cost_per_unit
 st.markdown("---") 
 
 # Input Operating Assumptions:
 st.subheader("📊 Operating Assumptions")
 col3a, col3b = st.columns(2)
 with col3a:
-    occupancy_pre = st.slider("Current Occupancy Rate (%)", 0, 100, 90)
-    expense_ratio = st.slider("Operating Expense Ratio (%)", 0, 100, 40)
+    default_occupancy_pre = st.session_state.get("occupancy_pre", 90)
+    occupancy_pre = st.slider("Current Occupancy Rate (%)", 0, 100, value=default_occupancy_pre)
+    st.session_state["occupancy_pre"] = occupancy_pre
+    default_expense_ratio = st.session_state.get("expense_ratio", 40)
+    expense_ratio = st.slider("Operating Expense Ratio (%)", 0, 100, value=default_expense_ratio)
+    st.session_state["expense_ratio"] = expense_ratio
 with col3b:
-    occupancy_post = st.slider("Stabilized Occupancy Rate (%)", 0, 100, 95)
+    default_occupancy_post = st.session_state.get("occupancy_post", 95)
+    occupancy_post = st.slider("Stabilized Occupancy Rate (%)", 0, 100, value=default_occupancy_post)
+    st.session_state["occupancy_post"] = occupancy_post
+st.markdown("---") 
+
+# Input Investment Assumptions:
+st.subheader("📆 Investment Assumptions")
+col4a, col4b, col4c = st.columns(3)
+with col4a:
+    default_hold = st.session_state.get("hold_period", 5)
+    hold_period = st.number_input("Hold Period (Years)", min_value=1, value=default_hold)
+    st.session_state["hold_period"] = hold_period
+with col4b:
+    default_stabilized_year = st.session_state.get("stabilized_year", 2)
+    stabilized_year = st.number_input( "Year Stabilized (NOI Begins)", min_value=1, max_value=hold_period, value=default_stabilized_year)
+    st.session_state["stabilized_year"] = stabilized_year
+with col4c:
+    default_exit_cap_rate = st.session_state.get("exit_cap_rate", 5)
+    exit_cap_rate = st.number_input("Exit Cap Rate (%)", min_value=1.0, max_value=15.0, value=5.0, step=0.1) / 100
+    st.session_state["exit_cap_rate"] = exit_cap_rate
 st.markdown("---") 
 
 # Handling errors: show warnings if key inputs are questionable:
@@ -90,7 +123,7 @@ if current_rent > 0 and renovated_rent > 0 and exit_cap_rate > 0 and units > 0:
     value_created = value_after_renovation - total_project_cost
 
     # Outputting the Results to the user:
-    
+
     # Adding visualizations for user exploration:
     # Preparing a summary DataFrame:
     summary_data = pd.DataFrame({
@@ -111,10 +144,10 @@ if current_rent > 0 and renovated_rent > 0 and exit_cap_rate > 0 and units > 0:
             round(value_created, 2)
         ]
     })
-
-    # Create downloadable CSV
+    
+    # Create downloadable CSV:
     csv = summary_data.to_csv(index=False).encode("utf-8")
-    tab1, tab2, tab3 = st.tabs(["📈 Financial Summary", "📊 Visual Comparisons","📄 Download"])
+    tab1, tab2, tab3 = st.tabs(["💵 Financial Summary", "📊 Visual Comparisons","📄 Download"])
     with tab1:
         col1a, col1b = st.columns(2)
         with col1a:
@@ -131,6 +164,7 @@ if current_rent > 0 and renovated_rent > 0 and exit_cap_rate > 0 and units > 0:
             value_created_color = "green" if value_created > 0 else "red"
             st.markdown(f"<h2 style='color:{value_created_color};'>${value_created:,.0f}</h2>", unsafe_allow_html=True)
             st.markdown("This is the estimated increase in value after renovations, based on your exit cap rate and stabilized NOI.")
+
     with tab2:
         st.subheader("📊 Visual Comparisons")
 
@@ -175,7 +209,9 @@ if current_rent > 0 and renovated_rent > 0 and exit_cap_rate > 0 and units > 0:
 else:
     st.error("❌ Cannot calculate financials with invalid inputs above.")
 
-
+# Storing inputs to be used across pages:
 st.session_state["total_project_cost"] = total_project_cost
-st.session_state["noi_renovated"] = noi_renovated
 st.session_state["value_after_renovation"] = value_after_renovation
+st.session_state["noi_renovated"] = noi_renovated
+st.session_state["expense_ratio_decimal"] = expense_ratio_decimal
+
