@@ -3,7 +3,7 @@ Welcome! This is a simple interactive web app built with **Streamlit** that visu
 
 ## 📊 Project Overview
 The Penguin App was developed as an introduction to building interactive data apps using Streamlit. It demonstrates how to:
-- Load and display structured data using 'pandas'
+- Load and display structured data using `pandas`
 - Add interactive filters and sliders
 - Dynamically update charts or tables based on user input
 
@@ -13,7 +13,7 @@ The dataset contains measurements for **344 penguins** across several species an
 - Python
 - Streamlit
 - Pandas
-- Palmer Penguins Dataset ('palmerpenguins')
+- Palmer Penguins Dataset (`palmerpenguins`)
 
 ## 📸 App Preview
 Below is a preview of the Penguin App interface:
