@@ -1,67 +1,53 @@
-# 🧠 Named Entity Recognition (NER) App  
-**Built with Python, spaCy, and Streamlit**
+# Named Entity Recognition (NER) App 🧠 
+Welcome! This is an interactive NLP web app built with **Streamlit** and **spaCy** that lets users experiment with Named Entity Recognition (NER) and define custom entities using `EntityRuler`. Upload your own text, add domain-specific labels, and visualize entity patterns in real time.
 
 ---
 
-## 📌 Project Overview
+## 📊 Project Overview
 
-This interactive web app allows users to explore Named Entity Recognition (NER) using [spaCy](https://spacy.io/)'s powerful NLP capabilities — specifically, the `EntityRuler`. Users can upload or input their own text, define custom entity labels and patterns (like tagging `"pickles"` as a `FOOD`), and instantly visualize the recognized entities highlighted in the text.
-
-spaCy’s NER pipeline uses statistical models and rule-based matchers to identify entities such as `PERSON`, `ORG`, `GPE`, `DATE`, and more. This app adds the ability to insert **custom rules** using spaCy’s `EntityRuler`, enabling greater flexibility and experimentation with domain-specific data.
+This interactive web app allows users to explore Named Entity Recognition (NER) using [spaCy](https://spacy.io/)'s NER pipeline. Users can:
+- Upload or type any body of text (or use a fun sample provided)
+- Explore pre-trained NER labels such as `PERSON`, `ORG`, `DATE`, `GPE`, etc.
+- Add custom entity rules to tag domain-specific terms (e.g., `"Spinelli's ranch"` as `FOOD`)
+- Visualize results with live highlighting and frequency charts
+It combines statistical modeling and rule-based logic, offering an educational and customizable introduction to applied NLP.
 
 ---
 
-## ⚙️ Setup Instructions
+## 🧠 Skills & Technologies Used
+- Python
+- Streamlit
+- spaCy
+- `en_core_web_sm` model
+- Custom rule-based `EntityRuler`
+- Interactive charting via `matplotlib` and `pandas`
 
-### ✅ Run Locally
+---
 
-1. **Clone the repo**  
-   ```bash
-   git clone https://github.com/yourusername/NERStreamlitApp.git
-   cd NERStreamlitApp
-   ```
+## 📸 App Previews
+Entity Highlighting:
 
-2. **Create a virtual environment (optional but recommended)**  
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # or venv\Scripts\activate on Windows
-   ```
+<img width="509" alt="NERexample" src="https://github.com/user-attachments/assets/a2dbd3eb-b4e4-4499-a289-39082ce90517" />
 
-3. **Install required packages**  
-   ```bash
+Entity Frequency Charts:
+
+<img width="502" alt="NERchartexample" src="https://github.com/user-attachments/assets/1e22085a-6efd-40e5-85ef-c7062f3a51b4" />
+
+## 🌐 Live Demo
+Try it out here: [NER App on Streamlit Cloud](https://namedentityrecognitionapp.streamlit.app/) 
+
+## 🚀 Or Run the App Locally
+First, ensure you have **Python 3.8+** installed along with the required libraries. You can install dependencies using:
+```bash
    pip install -r requirements.txt
-   ```
-
-4. **Download the spaCy model**  
-   ```bash
    python -m spacy download en_core_web_sm
    ```
-
-5. **Run the app**  
-   ```bash
+Then, clone the repository and run the app from your terminal:
+```bash
+   git clone https://github.com/cameronsage923/OGLESBY-Python-Portfolio/NERStreamlitApp.git
+   cd NERStreamlitApp
    streamlit run app.py
    ```
-
----
-## Link to Deployed Version
-
-https://namedentityrecognitionapp.streamlit.app/ 
-
----
-
-## ✨ App Features
-
-- 📄 **Upload or type custom text**
-- 🧠 **Explore spaCy’s default NER model**
-- 🏷️ **Add custom entities** by labeling phrases or words (e.g., `"Spinelli's ranch"` as `FOOD`)
-- 🎨 **Visual highlighting** of all entities in context
-- 📊 **Bar and pie charts** to analyze entity frequency
-- ♻️ **Reset** your custom rules anytime to start fresh
-
-#### 🧪 Example Pattern
-- Label: `FOOD`  
-- Pattern: `fried pickles`  
-→ Highlights every match of "fried pickles" as a `FOOD` entity in the text.
 
 ---
 
@@ -73,13 +59,4 @@ https://namedentityrecognitionapp.streamlit.app/
 - [spaCy Visualizer – displacy](https://spacy.io/usage/visualizers)
 
 ---
-
-## 🖼️ Visual Examples
-Visual Highlighting:
-
-<img width="509" alt="NERexample" src="https://github.com/user-attachments/assets/a2dbd3eb-b4e4-4499-a289-39082ce90517" />
-
-Frequency Charts:
-
-<img width="502" alt="NERchartexample" src="https://github.com/user-attachments/assets/1e22085a-6efd-40e5-85ef-c7062f3a51b4" />
 
