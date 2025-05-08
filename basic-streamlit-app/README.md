@@ -9,7 +9,13 @@ The Penguin App was developed as an introduction to building interactive data ap
 
 The dataset contains measurements for 344 penguins across several species and islands in Antarctica, collected by researchers at the Palmer Station.
 
-## App Preview
+## 🧠 Skills & Technologies Used:
+- Python
+- Streamlit
+- Pandas
+- Palmer Penguins Dataset (palmerpenguins)
+
+## 📸 App Preview
 Below is a preview of the Penguin App interface:
 
 ![Penguin App Screenshot](pictures/penguin_app_example.png)
@@ -28,12 +34,6 @@ Then, close the repository and run the app from your terminal:
     streamlit run basic_streamlit_app/main.py
    ```
 The app will launch in your default browser.
-
-## 🧠 Skills & Technologies Used:
-- Python
-- Streamlit
-- Pandas
-- Palmer Penguins Dataset (palmerpenguins)
 
 ## 🐧 Dataset Source
 This app uses the Palmer Penguins dataset, an alternative to the Iris dataset for data visualization and exploration.
