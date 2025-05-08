@@ -7,6 +7,21 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Waterfall Modeling", layout="wide")
 st.title("📉 Equity Waterfall Modeling")
 
+st.markdown("""
+### What is a Private Equity Waterfall?
+
+A **private equity waterfall** is the way profits are split between investors (LPs) and the sponsor (GP).  
+It ensures that investors receive their preferred return first, and **only after that** does the sponsor share in the upside.
+
+The structure typically has multiple "tiers":
+- First, investors get their **initial capital back**
+- Then, they earn a **preferred return** (e.g., 8% per year)
+- After that, any **remaining profits are split**, often with a larger share going to the sponsor — this is called the **promote**
+
+This rewards the sponsor for strong performance while protecting investor downside.
+""")
+
+
 # Checking for required data:
 required_keys = ["total_project_cost", "value_after_renovation", "noi_renovated", "hold_period", "stabilized_year"]
 if not all(k in st.session_state for k in required_keys):
@@ -240,10 +255,6 @@ results = waterfall_distribution(
 )
 
 # Compute the IRR cash flows:
-#lp_cf = [-lp_equity] + [0] * (hold_period - 1) + [results["Total LP Distribution"]]
-#gp_cf = [-gp_equity] + [0] * (hold_period - 1) + [results["Total GP Distribution"]]
-#project_cf = [-equity] + [0] * (hold_period - 1) + [cash_to_equity]
-
 lp_irr = npf.irr(lp_cf)
 gp_irr = npf.irr(gp_cf)
 project_cf = [-equity] + [row["Cash to Equity"] for row in annual_cash_flows]
