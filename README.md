@@ -1,31 +1,18 @@
-# Welcome to my Python portfolio.
-The **purpose** of this repository is to showcase my projects completed as part of my data science coursework. It will include examples of my work in **data visualization**, **analysis**, and **modeling** using Python. The goal of this portfolio is to demonstrate my ability to organize, analyze, and interpret data to reveal meaningful insights.
+# Cameron Oglesby: Python Portfolio
 
-# My Projects
+Welcome to my Python portfolio — a curated collection of interactive, real-world applications built with **Streamlit**, focused on data visualization, natural language processing, and financial modeling.
 
-### The Penguin App 🐧
+Each project blends concepts from my coursework in **finance, real estate, and computing** at the University of Notre Dame with hands-on technical development using Python, Streamlit, and key data libraries.
 
-In this portfolio, I have uploaded my first data visualization project: The Penguin App! Please see my basic-streamlit-app folder for more details.
+## 🔍 At a Glance
 
-### Tidy Data Project 🏅
-[View the Repository](https://github.com/cameronsage923/TidyData-Project)
+| Project | Description | Technologies | Live Demo |
+|--------|-------------|--------------|-----------|
+| 🐧 [The Penguin App](basic-streamlit-app) | Intro Streamlit app for filtering & visualizing penguin data from the Palmer Penguins dataset | Streamlit, pandas | [Try It →](https://thepenguinapp.streamlit.app/) |
+| 🧠 [NER App](NERStreamlitApp) | Interactive NLP tool for Named Entity Recognition with custom entity rules using spaCy | spaCy, Streamlit, matplotlib | [Try It →](https://namedentityrecognitionapp.streamlit.app/) |
+| 🏢 [Multifamily Value-Add Deal Visualizer](StreamlitAppFinal) | Real estate private equity modeling tool that projects pro formas, equity waterfalls, and return structures | Streamlit, pandas, numpy-financial, matplotlib | [Try It →](https://multifamilyvalueadd.streamlit.app/) |
 
-Description: This project applies tidy data principles to clean and analyze an Olympic dataset! 
-It includes data wrangling, visualization, and pivot tables to summarize key insights.
+---
 
-This file **fits into my portfolio** by showcasing my ability to clean and structure "messy" data. It also displays my exploratory analysis skills and my ability to create meaningful visualizations. Building upon my previous data analytics work, this project strengthens my Python skills and data science best practices.
+## 📁 Folder Structure
 
-### 🔍 Named Entity Recognition (NER) App 📊
-
-[View the full NER App Project](https://github.com/cameronsage923/OGLESBY-Python-Portfolio/tree/main/NERStreamlitApp) 
-
-Description: A custom Streamlit web app that allows users to explore Named Entity Recognition using spaCy. Users can input or upload text, define custom entity labels using spaCy's `EntityRuler`, and instantly visualize the recognized entities highlighted within the text. Includes visual charts and interactive features.
-
-This project complements my overall coding portfolio by illustrating my ability to combine natural language processing (NLP) with interactive front-end development! It showcases my practical experience with Python, spaCy, and Streamlit my ability to build a fully functional app that’s user-friendly. It shows skills in data visualization, user interface design, and the application of rule-based machine learning tools.
-
-# More Projects...
-
-![ComingSoonGIF (2)](https://github.com/user-attachments/assets/82cb2ce7-1072-4636-bd20-fb7429d87e71)
-
-
-I plan to organize this repository into folders grouping each project by their focus (i.e. exploratory data analysis, visualizations, modeling, etc.). Within each folder, each project will be further organized individually to include any datasets, code, and other relevant materials, as well as a project summary/description. 
