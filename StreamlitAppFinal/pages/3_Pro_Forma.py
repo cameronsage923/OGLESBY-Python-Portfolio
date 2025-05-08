@@ -7,7 +7,7 @@ st.set_page_config(page_title="Pro Forma Statement", layout="centered")
 st.title("📄 Pro Forma Statement")
 
 st.markdown("""
-### 📋 What is a Pro Forma?
+#### 📋 What is a Pro Forma?
 
 A **pro forma** is a forward-looking financial projection. In real estate, it estimates a property’s income, expenses, and cash flow over the life of the investment — often 5 to 10 years. It helps investors evaluate whether a deal is likely to meet their return targets.
 """)
@@ -33,6 +33,7 @@ interest_rate = st.session_state["interest_rate"]
 annual_debt_service = debt * (interest_rate / 100)
 
 rows = []
+occupancy = occupancy/100
 gross_income = units * rent * 12 * occupancy
 
 for year in range(1, hold_period + 1):
