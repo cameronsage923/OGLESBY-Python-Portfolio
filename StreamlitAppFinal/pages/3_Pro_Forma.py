@@ -92,8 +92,7 @@ The table above shows key financial projections for each year of the investment:
 - **Operating Expenses**: Property costs, adjusted for expense growth  
 - **NOI**: Income after expenses, before loan payments  
 - **Debt Service**: Annual loan payments (if debt is used)  
-- **Cash Flow**: The money available to investors each year  
-- **Exit Value**: The projected sale price in the final year, based on an exit cap rate
+- **Cash Flow**: The money available to investors each year 
 """)
 
 
