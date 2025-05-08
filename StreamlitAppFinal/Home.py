@@ -24,7 +24,7 @@ st.markdown("""
 """)
 
 # --- Optional Image or Diagram ---
-st.image("pictures/sample_waterfall_distribution.png", caption="Sample Waterfall Structure", use_column_width=True)
+#st.image("pictures/sample_waterfall_distribution.png", caption="Sample Waterfall Structure", use_column_width=True)
 
 # --- Footer or Credits ---
 st.markdown("---")
