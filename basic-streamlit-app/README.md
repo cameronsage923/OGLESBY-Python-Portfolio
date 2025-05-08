@@ -10,10 +10,10 @@ The Penguin App was developed as an introduction to building interactive data ap
 The dataset contains measurements for 344 penguins across several species and islands in Antarctica, collected by researchers at the Palmer Station.
 
 ## 🌐 Live Demo
-Check out the app here: The Penguin App on Streamlit Cloud
+Check out the app here: [The Penguin App on Streamlit Cloud](https://thepenguinapp.streamlit.app/)
 
-## 🚀 To run the app:
-### Prerequisites: 
+
+## 🚀 Or Run the App Locally:
 First, ensure you have Python 3.8+ installed along with the required libraries. You can install dependencies using:
    ```bash
     pip install streamlit pandas
