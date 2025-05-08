@@ -22,17 +22,21 @@ It combines statistical modeling and rule-based logic, offering an educational a
 - Custom rule-based `EntityRuler`
 - Interactive charting via `matplotlib` and `pandas`
 
+---
+
 ## 📸 App Previews
 Entity Highlighting:
+
 <img width="509" alt="NERexample" src="https://github.com/user-attachments/assets/a2dbd3eb-b4e4-4499-a289-39082ce90517" />
 
 Entity Frequency Charts:
+
 <img width="502" alt="NERchartexample" src="https://github.com/user-attachments/assets/1e22085a-6efd-40e5-85ef-c7062f3a51b4" />
 
 ## 🌐 Live Demo
 Try it out here: [NER App on Streamlit Cloud](https://namedentityrecognitionapp.streamlit.app/) 
 
-### 🚀 Or Run the App Locally
+## 🚀 Or Run the App Locally
 First, ensure you have **Python 3.8+** installed along with the required libraries. You can install dependencies using:
 ```bash
    pip install -r requirements.txt
