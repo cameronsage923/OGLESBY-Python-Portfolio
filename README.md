@@ -14,5 +14,15 @@ Each project blends concepts from my coursework in **finance, real estate, and c
 
 ---
 
-## 📁 Folder Structure
+## 🙋‍♂️ About Me
+
+I’m a **Finance major** at the University of Notre Dame, with a deep interest in **real estate private equity** and a growing background in **data analytics and Python development**.
+
+This portfolio demonstrates how I’ve applied what I’ve learned in class (and beyond) to build tools that are not only technically sound, but aligned with my career interests in finance, consulting, and investment strategy.
+
+---
+
+## 📫 Contact
+
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/cameron-sage-oglesby/) or explore my individual project folders above to learn more!
 
