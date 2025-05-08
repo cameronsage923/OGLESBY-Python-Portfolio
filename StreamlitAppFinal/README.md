@@ -1,5 +1,5 @@
 # 🏢 Multifamily Value-Add Deal Visualizer & Waterfall Modeler
-Welcome! This is an interactive web app built with Streamlit that helps users explore how real estate private equity firms analyze and structure multifamily value-add investments. The app is designed to make complex real estate deal modeling approachable—whether you're a student, an aspiring investor, or just curious about how these deals work.
+Welcome! This is an interactive web app built with **Streamlit** that helps users explore how real estate private equity firms analyze and structure **multifamily value-add investments**. The app is designed to make complex real estate deal modeling approachable— whether you're a student, an aspiring investor, or just curious about how these deals work.
 
 ## 📊 Project Overview
 In a multifamily value-add deal, investors acquire underperforming apartment properties and increase their value through renovations, improved operations, and rent growth. These projects generate returns by increasing the property’s income and selling it at a higher valuation.
@@ -24,6 +24,7 @@ The app applies concepts I learned in real estate and finance courses at Notre D
 ## 📸 App Preview
 Deal Visualizer:
 
+![deal_snapshot](pictures/deal_snapshot.png)
 
 Waterfall Modeling:
 
