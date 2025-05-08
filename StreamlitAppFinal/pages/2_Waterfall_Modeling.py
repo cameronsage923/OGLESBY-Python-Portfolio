@@ -264,7 +264,7 @@ with col2a :
         """)
 
 with col2b:
-    st.write("### 💰 Distribution Breakdown")
+    st.write("### 💰 Cash Distribution Breakdown")
     st.write(pd.DataFrame.from_dict(results, orient="index", columns=["Amount ($)"]))
 
 # Visualize the waterfall with chart:

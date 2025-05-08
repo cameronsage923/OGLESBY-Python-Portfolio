@@ -51,6 +51,14 @@ with col3a:
     default_expense_ratio = st.session_state.get("expense_ratio", 40)
     expense_ratio = st.slider("Operating Expense Ratio (%)", 0, 100, value=default_expense_ratio)
     st.session_state["expense_ratio"] = expense_ratio
+    with st.expander("What is the Expense Ratio?"):
+        st.markdown("""
+        The **Expense Ratio** is the percentage of income that goes toward operating expenses.
+
+        For example, a 40% expense ratio means 40% of the rent goes to costs like repairs, management, and utilities.  
+        Lower ratios usually mean more efficient or profitable properties.
+        """)
+
 with col3b:
     default_occupancy_post = st.session_state.get("occupancy_post", 95)
     occupancy_post = st.slider("Stabilized Occupancy Rate (%)", 0, 100, value=default_occupancy_post)
@@ -64,10 +72,25 @@ with col4a:
     default_hold = st.session_state.get("hold_period", 5)
     hold_period = st.number_input("Hold Period (Years)", min_value=1, value=default_hold)
     st.session_state["hold_period"] = hold_period
+    with st.expander("What is Holding Period?"):
+        st.markdown("""
+        The **Holding Period** is the total number of years the investment is projected to be held before sale.
+
+        It directly impacts projected returns, especially IRR, since time affects the value of cash flows.
+        """)
+
 with col4b:
     default_stabilized_year = st.session_state.get("stabilized_year", 2)
     stabilized_year = st.number_input( "Year Stabilized (NOI Begins)", min_value=1, max_value=hold_period, value=default_stabilized_year)
     st.session_state["stabilized_year"] = stabilized_year
+    with st.expander("What is the Stabilized Year?"):
+        st.markdown("""
+        The **Stabilized Year** is when the property is expected to reach normal operations — 
+        meaning it's fully leased, renovated, and generating steady income.
+
+        It's important for modeling because income and expenses may be lower or inconsistent before stabilization.
+        """)
+
 with col4c:
     default_exit_cap_rate = st.session_state.get("exit_cap_rate", 5)
     exit_cap_rate = st.number_input("Exit Cap Rate (%)", min_value=1.0, max_value=15.0, value=5.0, step=0.1) / 100
