@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.image("pictures/penguin_app_image.jpg", use_column_width=True, caption="Source: Vecteezy")
+st.image("basic-streamlit-app\pictures\penguin_app_image.jpg", use_column_width=True, caption="Source: Vecteezy")
 
 #Display a title:
 st.title("Welcome to The Penguin App!")
