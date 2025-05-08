@@ -3,8 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Multifamily RE Deal Tool", layout="centered")
 
 # Header Image
-#st.image("pictures/Fundamentals-of-Value-Add-Real-Estate-Investing-01.png", use_column_width=True, caption="Source: CRE Knowledge Base")
-st.image("StreamlitAppFinal/pictures/RE_image.png")
+st.image("pictures/RE_image.png", caption="Source: CRE Knowledge Base", use_column_width=True)
 
 # Title Section:
 st.title("🏢 Real Estate Private Equity: Multifamily Value-Add Deal Modeling Lab")
@@ -25,7 +24,7 @@ st.markdown("""
 """)
 
 # --- Optional Image or Diagram ---
-#st.image("pictures/sample_waterfall_distribution.png", caption="Sample Waterfall Structure", use_column_width=True)
+st.image("pictures/sample_waterfall_distribution.png", caption="Sample Waterfall Structure", use_column_width=True)
 
 # --- Footer or Credits ---
 st.markdown("---")
