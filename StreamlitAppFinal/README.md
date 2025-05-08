@@ -27,7 +27,7 @@ Deal Visualizer:
 
 Waterfall Modeling:
 
-
+![REPE_waterfall_example](pictures/REPE_waterfall_example.png)
 
 
 ## 🌐 Live Demo
