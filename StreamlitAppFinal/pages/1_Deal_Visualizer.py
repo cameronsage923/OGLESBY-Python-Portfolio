@@ -154,6 +154,13 @@ if current_rent > 0 and renovated_rent > 0 and exit_cap_rate > 0 and units > 0:
             st.write("### Net Operating Income (NOI)")
             st.write(f"**Current NOI:** ${noi_current:,.2f}")
             st.write(f"**Stabilized NOI:** ${noi_renovated:,.2f}")
+            with st.expander("What is Net Operating Income (NOI)?"):
+                st.markdown("""
+                **NOI** stands for **Net Operating Income**.  
+                It's calculated as revenue minus operating expenses (excluding debt service, taxes, and capital expenditures).  
+                It's a key indicator of a property's profitability before financing costs.
+                """)
+
             st.write("### Property Valuation")
             st.write(f"**Projected Property Value After Renovation:** ${value_after_renovation:,.2f}")
             st.write("### Costs")
